@@ -1,0 +1,24 @@
+var playlists = [
+    {
+        name: "Spilleliste1",
+        videos:[
+            "dQw4w9WgXcQ",
+            "dQw4w9WgXcQ",
+            "dQw4w9WgXcQ",
+            "dQw4w9WgXcQ",
+            "dQw4w9WgXcQ",
+            "dQw4w9WgXcQ",
+        ]
+    },
+    {
+        name: "Spilleliste2",
+        videos:[
+            "dQw4w9WgXcQ",
+            "dQw4w9WgXcQ",
+            "dQw4w9WgXcQ",
+            "dQw4w9WgXcQ",
+            "dQw4w9WgXcQ",
+            "dQw4w9WgXcQ",
+        ]
+    }
+]
