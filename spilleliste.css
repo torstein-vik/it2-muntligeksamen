@@ -69,9 +69,6 @@ body, html{
 #player{
     position: fixed;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
     top: 0;
     bottom: 0;
@@ -80,6 +77,19 @@ body, html{
     width: 100vw;
 
     overflow: auto;
+}
+
+#player-container{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    left: 0;
+    right: 300px;
 }
 
 #back-button{
@@ -113,9 +123,57 @@ body, html{
 
 #player iframe{
     border: none;
-    width: 50%;
-    height: 40%;
+    width: 500px;
+    height: 400px;
 
     background-color: black;
     box-shadow: 0 0 4px black;
+}
+
+#playlist{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+
+    width: 300px;
+
+    background-color: #DDD;
+    box-shadow: 0 0 4px black;
+
+    padding: 10px;
+
+    overflow-y: auto;
+
+    display:flex;
+    flex-flow: column nowrap;
+
+}
+
+#playlist > h3{
+    text-align: center;
+}
+
+#playlist > div{
+    border: 1px solid grey;
+    box-shadow: 0 0 4px black;
+    margin: 10px;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+
+    cursor: pointer;
+}
+
+#playlist > div.active, #playlist > div:hover{
+    background-color: #EEE;
+}
+
+#playlist > div > img{
+    width: auto;
+    height: 50px;
+
+    margin-right: 5px;
+
 }

@@ -1,5 +1,6 @@
 $(() => {
     $("#back-button").click(backToSelection);
+    videoSelected(0, 0);
 
     playlists.forEach((playlist, playlist_index) => {
         var playlist_container = $("<div>");
@@ -23,7 +24,7 @@ $(() => {
 
         $.when.apply($, loaded).done(function(){
 
-            Array.prototype.slice.call(arguments).forEach((argument) => {
+            Array.prototype.slice.call(arguments).forEach((argument, video_index) => {
 
                 var video = $("<div>");
 
@@ -31,7 +32,7 @@ $(() => {
                 video.append(argument.title);
 
                 video.click(() => {
-                    videoSelected(playlist_index, argument.id);
+                    videoSelected(playlist_index, video_index);
                 });
 
                 video_container.append(video);
@@ -47,28 +48,67 @@ $(() => {
     });
 });
 
-function videoSelected(playlist, video){
-    showVideo(video);
+function videoSelected(playlistid, video_index){
+    showPlaylist(playlists[playlistid]).done(() => {
+        showVideo(playlists[playlistid].videos[video_index], video_index);
+    });
     toggleView();
 }
 
 function backToSelection(){
     toggleView();
     $("#player iframe").attr('src', "");
+    $("#playlist").html("");
 }
 
 
-function showVideo(videoid){
+function showVideo(videoid, video_index){
     $("#player iframe").attr('src', "https://youtube.com/embed/"+videoid);
+
+    $("#playlist > div.active").removeClass("active");
+    $("#playlist > div:nth-child("+(video_index+2)+")").addClass("active");
 }
 
+function showPlaylist(playlist){
+    $("#playlist").html("<h3>"+playlist.name+"</h3>")
+
+    var loaded = Array.apply(null, Array(playlist.videos.length)).map(() => new $.Deferred());
+
+
+    playlist.videos.forEach((videoid, index) => {
+
+        load(videoid).done((result) => {
+            loaded[index].resolve(result);
+        });
+
+    });
+
+    return $.when.apply($, loaded).done(function(){
+
+        Array.prototype.slice.call(arguments).forEach((argument, video_index) => {
+
+            var video = $("<div>");
+
+            video.append("<img src='"+argument.thumbnail+"'>");
+            video.append(argument.title);
+
+            video.click(() => {
+                showVideo(argument.id, video_index);
+            });
+
+            $("#playlist").append(video);
+
+        });
+
+    });
+}
 
 function toggleView(){
 
     var to   = $(toggleView.togglers[toggleView.state ^ 1]);
     var from = $(toggleView.togglers[toggleView.state]);
 
-    var width = $("html").width()
+    var width = $("html").width();
     var shift = width * (toggleView.state * 2 - 1);
 
     from.css('pointer-events', 'none');
