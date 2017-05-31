@@ -12,7 +12,10 @@ body, html{
     top: 0;
     bottom: 0;
     left: 0;
-    right: 0;
+
+    width: 100vw;
+
+    overflow: auto;
 }
 
 #playlists > div{
@@ -23,7 +26,7 @@ body, html{
     box-shadow: 0 0 4px black;
 }
 
-#playlists > div > h3{
+#playlists > div > h2{
     text-align: center;
 }
 
@@ -40,6 +43,79 @@ body, html{
     box-shadow: 0 0 4px black;
     border-radius: 3px;
 
-    width: 200px;
-    height: 100px;
+    height: auto;
+
+    display: flex;
+    flex-direction: column;
+
+    cursor: pointer;
+}
+
+#playlists .videos div:hover{
+    background-color: #F0F0F0;
+}
+
+#playlists .videos div > img{
+    margin: 10px;
+
+    min-width: calc(100% - 20px);
+    max-width: calc(100px);
+
+    height: auto;
+
+}
+
+
+#player{
+    position: fixed;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    top: 0;
+    bottom: 0;
+    left: 100vw;
+
+    width: 100vw;
+
+    overflow: auto;
+}
+
+#back-button{
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    height: 50px;
+    width: 50px;
+
+    text-align: center;
+
+    margin: 50px;
+
+    font-size: 280%;
+    font-weight: 500;
+    line-height: 50px;
+
+    background-color: #DDD;
+    border-radius: 25px;
+
+    box-shadow: 0 0 4px black;
+
+    cursor: pointer;
+}
+
+#back-button:hover{
+    background-color: #EFEFEF;
+}
+
+#player iframe{
+    border: none;
+    width: 50%;
+    height: 40%;
+
+    background-color: black;
+    box-shadow: 0 0 4px black;
 }

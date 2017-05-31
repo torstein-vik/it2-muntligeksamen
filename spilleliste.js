@@ -1,8 +1,10 @@
 $(() => {
-    playlists.forEach((playlist) => {
+    $("#back-button").click(backToSelection);
+
+    playlists.forEach((playlist, playlist_index) => {
         var playlist_container = $("<div>");
 
-        playlist_container.append("<h3>"+playlist.name+"</h3>");
+        playlist_container.append("<h2>"+playlist.name+"</h2>");
 
         var video_container = $("<div class='videos'>");
 
@@ -28,6 +30,10 @@ $(() => {
                 video.append("<img src='"+argument.thumbnail+"'>");
                 video.append(argument.title);
 
+                video.click(() => {
+                    videoSelected(playlist_index, argument.id);
+                });
+
                 video_container.append(video);
 
             });
@@ -40,3 +46,48 @@ $(() => {
 
     });
 });
+
+function videoSelected(playlist, video){
+    showVideo(video);
+    toggleView();
+}
+
+function backToSelection(){
+    toggleView();
+    $("#player iframe").attr('src', "");
+}
+
+
+function showVideo(videoid){
+    $("#player iframe").attr('src', "https://youtube.com/embed/"+videoid);
+}
+
+
+function toggleView(){
+
+    var to   = $(toggleView.togglers[toggleView.state ^ 1]);
+    var from = $(toggleView.togglers[toggleView.state]);
+
+    var width = $("html").width()
+    var shift = width * (toggleView.state * 2 - 1);
+
+    from.css('pointer-events', 'none');
+    to.css('pointer-events', 'all');
+
+    var fromleft = from.position().left + shift;
+    from.animate({
+        left : fromleft ,
+        right: fromleft - width
+    }, 500);
+
+    var toleft = to.position().left + shift;
+    to.animate({
+        left : toleft,
+        right: toleft - width
+    }, 500);
+
+    toggleView.state ^= 1;
+}
+
+toggleView.state = 0;
+toggleView.togglers = ["#playlists", "#player"];

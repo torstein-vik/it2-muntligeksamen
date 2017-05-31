@@ -17,7 +17,8 @@ function load(id){
             loadedVideos[id].resolve({
                 dat: res,
                 title: res.match(/<title>(.*) - YouTube<\/title>/)[1],
-                thumbnail: "https://img.youtube.com/vi/"+id+"/default.jpg"
+                thumbnail: "https://img.youtube.com/vi/"+id+"/hqdefault.jpg",
+                id: id
             });
         });
     }
