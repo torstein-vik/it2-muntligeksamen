@@ -10,27 +10,33 @@ $(() => {
 
 
         playlist.videos.forEach((videoid, index) => {
-            var imgurl = "https://img.youtube.com/vi/"+videoid+"/default.jpg";
 
-            var dataurl = "http://youtube.com/get_video_info?video_id="+videoid;
+            load(videoid).done((result) => {
 
-            $.ajax({
-                url: dataurl
-            }).done((result) => {
-                console.log(result);
-
-                loaded[index].resolve();
+                loaded[index].resolve(result);
             });
 
 
         });
 
-        $.when.apply($, loaded).done(() => {
-            console.log("done!")
+        $.when.apply($, loaded).done(function(){
+
+            Array.prototype.slice.call(arguments).forEach((argument) => {
+
+                var video = $("<div>");
+
+                video.append("<img src='"+argument.thumbnail+"'>");
+                video.append(argument.title);
+
+                video_container.append(video);
+
+            });
+
+            playlist_container.append(video_container);
+
+            $("#playlists").append(playlist_container);
+
         });
 
-        playlist_container.append(video_container);
-
-        $("#playlists").append(playlist_container);
     });
 });

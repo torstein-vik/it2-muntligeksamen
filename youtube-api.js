@@ -1,11 +1,10 @@
 var loadedVideos = {};
 
 function load(id){
-    var loaded = new $.Deferred();
 
-    if(loadedVideos[id]){
-        loaded.resolveWith(loadedVideos[id]);
-    } else {
+    if(!loadedVideos[id]){
+
+        loadedVideos[id] = new $.Deferred();
 
         $.ajax({
             url: "api.php",
@@ -14,16 +13,14 @@ function load(id){
                 url: "https://youtube.com/watch?v=" + id
             }
         }).done((res) => {
-            var dom = $(res);
 
-            loadedVideos[id] = {
+            loadedVideos[id].resolve({
                 dat: res,
-                title: dom.find("title").html()
-            };
-
-            loaded.resolveWith(loadedVideos[id]);
+                title: res.match(/<title>(.*) - YouTube<\/title>/)[1],
+                thumbnail: "https://img.youtube.com/vi/"+id+"/default.jpg"
+            });
         });
     }
 
-    return loaded;
+    return loadedVideos[id];
 }
