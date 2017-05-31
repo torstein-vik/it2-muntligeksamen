@@ -6,17 +6,23 @@ function load(id){
     if(loadedVideos[id]){
         loaded.resolveWith(loadedVideos[id]);
     } else {
-        var iframe = $("<iframe id='"+id+"' src='https://youtube.com/embed/"+id+"'>");
 
-        iframe.on("load", (e) => {
+        $.ajax({
+            url: "api.php",
+            method: "POST",
+            data: {
+                url: "https://youtube.com/watch?v=" + id
+            }
+        }).done((res) => {
+            var dom = $(res);
 
-            console.log($("iframe#"+id).contents());
+            loadedVideos[id] = {
+                dat: res,
+                title: dom.find("title").html()
+            };
 
+            loaded.resolveWith(loadedVideos[id]);
         });
-
-        $("iframes").append(iframe);
-
-
     }
 
     return loaded;
