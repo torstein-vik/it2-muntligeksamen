@@ -1,6 +1,5 @@
 $(() => {
     $("#back-button").click(backToSelection);
-    videoSelected(0, 0);
 
     playlists.forEach((playlist, playlist_index) => {
         var playlist_container = $("<div>");

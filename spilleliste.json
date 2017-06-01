@@ -1,8 +1,14 @@
 var playlists = [
     {
-        name: "Spilleliste1",
+        name: "Javascript Tutorial",
         videos:[
-            "dQw4w9WgXcQ",
+            "vZBCTc9zHtI",
+            "WGPaZNYrHpo",
+            "AY6X5jZZ_JE",
+            "orAS-MBh5f4",
+            "W3EK4MlZW4g",
+            "e57ReoUn6kM",
+            "0tEW8rB1bbU",
             "dQw4w9WgXcQ",
             "dQw4w9WgXcQ",
             "dQw4w9WgXcQ",

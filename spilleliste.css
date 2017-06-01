@@ -44,6 +44,7 @@ body, html{
     border-radius: 3px;
 
     height: auto;
+    width: 400px;
 
     display: flex;
     flex-direction: column;
@@ -164,6 +165,8 @@ body, html{
     justify-content: flex-start;
 
     cursor: pointer;
+
+    flex: none;
 }
 
 #playlist > div.active, #playlist > div:hover{
